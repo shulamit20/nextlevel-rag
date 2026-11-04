@@ -1,0 +1,13 @@
+# API key - never commit
+.env
+
+# Vector store (rebuilt by ingest.py)
+chroma_db/
+
+# Raw LLM JSON log (answer.py)
+logs/
+
+# Python
+venv/
+__pycache__/
+*.pyc

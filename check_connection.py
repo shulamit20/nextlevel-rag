@@ -1,6 +1,6 @@
 """Stage 0: checks that the API key, the network (NetFree) and both models work.
 
-Run:  venv\\Scripts\\python check_connection.py
+Run:  .\\venv\\Scripts\\python .\\check_connection.py
 """
 import os
 import sys

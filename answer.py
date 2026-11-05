@@ -157,8 +157,6 @@ def ask(index, question, history):
     # Fixed texts are added by the code, so they always appear and are worded the same
     # One way to write shekels in every answer
     text = re.sub(r'ש[״"]ח', "₪", reply.answer)
-    if details:
-        text = config.HISTORY_DETAILS_LINE.format(details=", ".join(details)) + "\n\n" + text
     if reply.status == "missing":
         text += f"\n\n{config.OFFICE_LINE}"
 

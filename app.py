@@ -69,11 +69,16 @@ def get_index():
     return rag.load_index()
 
 
-def show_sources(sources):
-    """Collapsible sources section, closed by default."""
+def show_sources(sources, question, search_question=None, details=None):
+    """Collapsible sources section, closed by default. Also shows how a follow-up
+    question was rewritten and which details came from the conversation."""
     if not sources:
         return
     with st.expander("מקורות", expanded=False):
+        if search_question and search_question != question:
+            st.markdown(f"**{config.REWRITTEN_LABEL}:** {search_question}")
+        if details:
+            st.markdown(f"**{config.DETAILS_LABEL}:** {', '.join(details)}")
         for chunk in sources:
             st.markdown(f"**{chunk['source']}** · ציון {chunk['score']:.3f}")
             st.text(chunk["text"])
@@ -89,7 +94,10 @@ st.caption(config.PRICE_NOTE)  # once at the top, instead of under every answer 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         show_text(message["content"])
-        show_sources(message.get("sources"))
+        show_sources(
+            message.get("sources"), message.get("question"),
+            message.get("search_question"), message.get("details"),
+        )
 
 question = st.chat_input("שאלו על אולמות, קייטרינג, שירותים, הזמנות ותשלומים")
 if question:
@@ -100,10 +108,18 @@ if question:
         with st.spinner("..."):
             result = answer.ask(get_index(), question, st.session_state.history)
         show_text(result["answer"])
-        show_sources(result["sources"])
+        show_sources(
+            result["sources"], question,
+            result["search_question"], result.get("details_from_history"),
+        )
 
     st.session_state.messages.append({"role": "user", "content": question})
-    st.session_state.messages.append(
-        {"role": "assistant", "content": result["answer"], "sources": result["sources"]}
-    )
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": result["answer"],
+        "sources": result["sources"],
+        "question": question,
+        "search_question": result["search_question"],
+        "details": result.get("details_from_history"),
+    })
     st.session_state.history.append((question, result["answer"]))

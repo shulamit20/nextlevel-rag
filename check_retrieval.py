@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 import config
 import rag
 
-# Based on "details especially suited for testing" in REVIEW_GUIDE.md
+# Based on "details especially suited for testing" in docs/process/REVIEW_GUIDE.md
 QUESTIONS = [
     "כמה עולה האולם הראשי במשמרת ערב?",                          # exact number
     "האם התפריט הטבעוני כולל שתייה?",                             # trap: it does not

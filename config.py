@@ -35,7 +35,7 @@ ERROR_MESSAGE = "לא הצלחתי לענות כרגע. אפשר לנסות שו
 # Raw JSON returned by the LLM, one entry per call, exactly as received (for debugging; not in git)
 LLM_JSON_LOG = "logs/llm_json.log"
 
-# Approved prompt - learning/prompt_draft.md; rules 2, 6, 9, 10, 11 and the format changed 04.11;
+# Approved prompt - docs/process/learning/prompt_draft.md; rules 2, 6, 9, 10, 11 and the format changed 04.11;
 # rules 6, 7, 12 changed 05.11
 # (any wording change needs approval)
 ANSWER_PROMPT = """אתה נציג שירות לקוחות של חברת NextLevel Events (אולמות אירועים).
@@ -76,10 +76,11 @@ ANSWER_PROMPT = """אתה נציג שירות לקוחות של חברת NextLev
 
 שאלת הלקוח: {question}"""
 
-# Shown above the answer when the rewrite took details from the conversation
-HISTORY_DETAILS_LINE = "לפי השיחה: {details}"
+# Shown inside the sources section (not in the answer) when the question was rewritten
+REWRITTEN_LABEL = "שאלה משוכתבת"
+DETAILS_LABEL = "פרטים מהשיחה"
 
-# Approved 03.11 - learning/08_bug_followup_details.md, section 4; depends_on_history and
+# Approved 03.11 - docs/process/learning/08_bug_followup_details.md, section 4; depends_on_history and
 # the gershayim rule added 04.11
 REWRITE_PROMPT = """אתה מקבל שיחה בין לקוח לבין נציג של חברת אולמות אירועים, ושאלה חדשה של הלקוח.
 
